@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:real_time_chat/auth/auth_services.dart';
 
 import '../componenets/my_button.dart';
 import '../componenets/my_textfield.dart';
@@ -18,7 +19,32 @@ class RegisterPage extends StatelessWidget{
    RegisterPage ({super.key,required this.onTap});
 
    // register
-  void register(){
+  void register(BuildContext context){
+    final _auth =AuthServices();
+
+    // password match == create user
+    if(_pwController.text == _confirmController.text){
+      try{
+        _auth.signUpWithEmailPassword(_emailController.text, _pwController.text,);
+      }catch(e){
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(e.toString()),
+          ),
+        );
+
+      }
+    }
+    // password don't match -> tell user to fix
+    else{
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text("Password don't match!"),
+        ),
+      );
+    }
 
   }
 
@@ -54,7 +80,7 @@ class RegisterPage extends StatelessWidget{
 
             MyTextField(
               hintText: "Email",
-              obscureText: true,
+              obscureText: false,
               controller: _emailController,
             ),
             const SizedBox(height: 10),
@@ -63,7 +89,7 @@ class RegisterPage extends StatelessWidget{
 
             MyTextField(
               hintText: "Password",
-              obscureText: false,
+              obscureText: true,
               controller: _pwController,
             ),
             const SizedBox(height: 25),
@@ -72,7 +98,7 @@ class RegisterPage extends StatelessWidget{
 
             MyTextField(
               hintText: " Confirm Password",
-              obscureText: false,
+              obscureText: true,
               controller: _confirmController,
             ),
             const SizedBox(height: 25),
@@ -81,7 +107,7 @@ class RegisterPage extends StatelessWidget{
 
             MyButton(
                 text: "Register",
-                onTap: register
+                onTap: () => register(context),
             ),
             const SizedBox(height: 10),
 
