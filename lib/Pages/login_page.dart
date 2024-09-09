@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:real_time_chat/auth/auth_services.dart';
 import 'package:real_time_chat/componenets/my_button.dart';
 import 'package:real_time_chat/componenets/my_textfield.dart';
+
+import '../services/auth/auth_services.dart';
 
 class LoginPage extends StatelessWidget{
 
@@ -16,8 +19,24 @@ class LoginPage extends StatelessWidget{
 
    // login method
 
-  void login(){
+  void login(BuildContext context) async{
+    //auth services
+     final authService = AuthServices();
 
+     // try login
+    try{
+      await authService.signInWithEmailPassword(_emailController.text, _pwController.text);
+    }
+    //catch any error
+
+    catch (e){
+      showDialog(
+            context: context,
+          builder: (context) => AlertDialog(
+            title: Text(e.toString()),
+          ),
+      );
+    }
   }
 
   @override
@@ -52,7 +71,7 @@ class LoginPage extends StatelessWidget{
                      
                      MyTextField(
                          hintText: "Email",
-                         obscureText: true,
+                         obscureText: false,
                          controller: _emailController,
                      ),
                      const SizedBox(height: 10),
@@ -61,7 +80,7 @@ class LoginPage extends StatelessWidget{
 
                      MyTextField(
                        hintText: "Password",
-                       obscureText: false,
+                       obscureText: true,
                        controller: _pwController,
                      ),
                      const SizedBox(height: 25),
@@ -70,7 +89,7 @@ class LoginPage extends StatelessWidget{
 
                      MyButton(
                          text: "Login",
-                         onTap: login
+                         onTap: () => login(context),
                      ),
                      const SizedBox(height: 10),
 
