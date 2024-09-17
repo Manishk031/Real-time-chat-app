@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../Pages/setting_page.dart';
 import '../auth/auth_services.dart';
-import '../services/auth/auth_services.dart';
 
 class MyDrawer extends StatelessWidget{
   const MyDrawer({super.key});
@@ -69,8 +68,8 @@ class MyDrawer extends StatelessWidget{
         Padding(padding:
         const EdgeInsets.only(left: 25.0,bottom: 25),
         child: ListTile(
-          title:  const Text("L O G O U T"),
-          leading: const Icon(Icons.logout),
+          title: const Text("L O G O U T"),
+          leading: Icon(Icons.logout),
           onTap: logout,
         ),
         ),
