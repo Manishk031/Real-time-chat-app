@@ -4,6 +4,7 @@ import 'package:real_time_chat/auth/auth_services.dart';
 
 import '../componenets/my_button.dart';
 import '../componenets/my_textfield.dart';
+import '../services/auth/auth_services.dart';
 
 class RegisterPage extends StatelessWidget{
 

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:real_time_chat/auth/auth_gate.dart';
 import 'package:real_time_chat/auth/login_or_register.dart';
+import 'package:real_time_chat/services/auth/auth_gate.dart';
 import 'package:real_time_chat/themes/light.dart';
 
 import 'firebase_options.dart'; // Ensure this path is correct
