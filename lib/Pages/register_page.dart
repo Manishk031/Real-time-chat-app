@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:real_time_chat/auth/auth_services.dart';
-
 import '../componenets/my_button.dart';
 import '../componenets/my_textfield.dart';
 import '../services/auth/auth_services.dart';
@@ -21,12 +18,14 @@ class RegisterPage extends StatelessWidget{
 
    // register
   void register(BuildContext context){
-    final _auth =AuthServices();
+    final auth =AuthServices();
 
     // password match == create user
     if(_pwController.text == _confirmController.text){
       try{
-        _auth.signUpWithEmailPassword(_emailController.text, _pwController.text,);
+        auth.signUpWithEmailPassword(
+          _emailController.text,
+          _pwController.text,);
       }catch(e){
         showDialog(
           context: context,

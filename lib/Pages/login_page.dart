@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:real_time_chat/auth/auth_services.dart';
 import 'package:real_time_chat/componenets/my_button.dart';
 import 'package:real_time_chat/componenets/my_textfield.dart';
-
 import '../services/auth/auth_services.dart';
 
 class LoginPage extends StatelessWidget{
@@ -21,11 +19,11 @@ class LoginPage extends StatelessWidget{
 
   void login(BuildContext context) async{
     //auth services
-     final authService = AuthServices();
+     final authServices = AuthServices();
 
      // try login
     try{
-      await authService.signInWithEmailPassword(_emailController.text, _pwController.text);
+      await authServices.signInWithEmailPassword(_emailController.text, _pwController.text);
     }
     //catch any error
 

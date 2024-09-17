@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:real_time_chat/auth/auth_gate.dart';
-import 'package:real_time_chat/auth/login_or_register.dart';
+import 'package:provider/provider.dart';
 import 'package:real_time_chat/services/auth/auth_gate.dart';
 import 'package:real_time_chat/themes/light.dart';
+import 'package:real_time_chat/themes/theme_provider.dart';
 
 import 'firebase_options.dart'; // Ensure this path is correct
 
@@ -12,7 +12,11 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+      ChangeNotifierProvider(create: (context) => ThemeProvider(),
+      child: const MyApp(),
+      ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: lightMode, // Referencing lightMode from light.dart
+      theme: Provider.of<ThemeProvider>(context).themeData, // Referencing lightMode from light.dart
       home:  const AuthGate(),
     );
   }

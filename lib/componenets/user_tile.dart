@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 class UserTile extends StatelessWidget{
   final String text;
   final void Function()? onTap;
-  const UserTile({super.key,
+
+  const UserTile({
+  super.key,
   required this.text,
-  required this.onTap,});
+  required this.onTap,
+  });
 
 
   @override
@@ -18,7 +21,7 @@ class UserTile extends StatelessWidget{
           borderRadius: BorderRadius.circular(12),
         ),
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Row(
           children: [
 

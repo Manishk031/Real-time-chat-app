@@ -1,6 +1,3 @@
-import 'dart:html';
-import 'dart:js';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:real_time_chat/componenets/chat_bubble.dart';
@@ -12,7 +9,7 @@ class ChatPage extends StatefulWidget{
   final String receiverEmail;
   final String receiverID;
 
-    ChatPage ({
+    const ChatPage ({
      super.key,
      required this.receiverEmail,
      required this.receiverID,
@@ -31,7 +28,6 @@ class _ChatPageState extends State<ChatPage> {
   final AuthServices _authServices = AuthServices();
 
   // for text field focus
-
   FocusNode myFocusNode = FocusNode();
 
   @override
