@@ -116,12 +116,12 @@ class _ChatPageState extends State<ChatPage> {
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         // Error
         if (snapshot.hasError) {
-          return Center(child: Text("Error loading messages"));
+          return const Center(child: Text("Error loading messages"));
         }
 
         // Loading
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
 
         // Scroll down when new messages arrive
@@ -136,6 +136,7 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
+  // Build message item
   // Build message item
   Widget _buildMessageItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
@@ -153,13 +154,16 @@ class _ChatPageState extends State<ChatPage> {
         isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           ChatBubble(
-            message: data["message"],
+            message: data["message"] ?? '', // Provide a default empty string if null
             isCurrentUser: isCurrentUser,
+            messageId: doc.id,
+            userId: data["senderID"] ?? '', // Corrected field name and added null safety
           ),
         ],
       ),
     );
   }
+
 
   // Build message input
   Widget _buildUserInput() {
