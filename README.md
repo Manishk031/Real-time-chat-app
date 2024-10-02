@@ -1,4 +1,4 @@
-readme_content = """
+
 # Real-Time Chat App using Flutter
 
 A simple real-time chat application built using Flutter that allows users to send and receive messages instantly. The app leverages Firebase for user authentication and real-time messaging, providing a seamless chat experience.
@@ -23,4 +23,4 @@ To run the app locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/repository-name.git
+   git clone https://github.com/Manishk031/Real-time-chat-app
