@@ -18,9 +18,4 @@ A simple real-time chat application built using Flutter that allows users to sen
 
 ![Chat Screen](link_to_image)
 
-## Installation
-To run the app locally, follow these steps:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Manishk031/Real-time-chat-app
