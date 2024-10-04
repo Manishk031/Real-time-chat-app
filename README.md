@@ -19,7 +19,13 @@ A simple real-time chat application built using Flutter that allows users to sen
 Prerequisites
 - Flutter SDK
 - Firebase Account
-- Android Studio 
+- Android Studio
+
+
+    
+## Screenshots 
+share some screen shot in future 
+
 
 ## Project Structure
 ```bash
@@ -36,59 +42,7 @@ lib/
     ├── message_bubble.dart    # Widget for displaying chat bubbles
     └── input_field.dart       # Widget for typing and sending messages
 
-## Flutter code 
 
-Main Entry point: main.dart
-
-``` 
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'screens/login_screen.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Real-Time Chat App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: LoginScreen(),
-    );
-  }
-}
-
-## Authentication Service: auth_service.dart
-
-``
-import 'package:firebase_auth/firebase_auth.dart';
-
-class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  // Sign in with Google
-  Future<User?> signInWithGoogle() async {
-    try {
-      // Your Google sign-in logic here
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
-  // Sign out
-  Future<void> signOut() async {
-    await _auth.signOut();
-  }
-}
-
-## Screenshots 
 
 
 
