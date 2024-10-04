@@ -22,7 +22,7 @@ A simple real-time chat application built using Flutter that allows users to sen
 - Android Studio 
 
 ## Project Structure
-
+--bash
 lib/
 ├── main.dart                 # App entry point
 ├── screens/
