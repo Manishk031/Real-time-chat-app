@@ -16,7 +16,7 @@ A simple real-time chat application built using Flutter that allows users to sen
 ## Getting Started
  Follow these instructions to set up and run the project on your local machine.
 
-###Prerequisites
+Prerequisites
 - Flutter SDK
 - Firebase Account
 - Android Studio 
@@ -40,7 +40,7 @@ lib/
 
 Main Entry point: main.dart
 
-```bash
+``` 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/login_screen.dart';
@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
 
 ## Authentication Service: auth_service.dart
 
-```bash
+``
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
