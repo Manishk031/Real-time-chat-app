@@ -11,7 +11,7 @@ A simple real-time chat application built using Flutter that allows users to sen
 
 ## Tech Stack
 - **Frontend**: Flutter (Dart)
-- **Firebase: Backend services(Firebase Authentication, Cloud Firestore, Firebase Cloud Messaging (FCM))
+- Firebase: Backend services(Firebase Authentication, Cloud Firestore, Firebase Cloud Messaging (FCM))
 
 ## Getting Started
  Follow these instructions to set up and run the project on your local machine.
