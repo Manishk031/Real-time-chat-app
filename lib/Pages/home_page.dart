@@ -62,7 +62,11 @@ class HomePage extends StatelessWidget{
      if (userData["email"] != _authServices.getCurrentUser()!.email) {
        return UserTile(
          text: userData["email"],
-         onTap: () {
+         onTap: () async {
+
+           // mark the all message in this chat page as read
+           await _chatServices.markMessagesAsRead(userData["uid"]);
+
            // Tapped on a user -> go to chat page
            Navigator.push(
              context,
@@ -74,6 +78,7 @@ class HomePage extends StatelessWidget{
              ),
            );
          },
+         unreadMessageCount: userData['unreadCount'],
        );
      } else {
        return Container();

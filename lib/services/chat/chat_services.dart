@@ -28,7 +28,7 @@ class ChatServices {
         .doc(currentUser!.uid)
         .collection('BlockedUsers')
         .snapshots()
-        .asyncMap((snapshot) async{
+        .asyncMap((snapshot) async {
 
       // GET BLOCKED USERS IDS
       final blockedUsersIds = snapshot.docs.map((doc) => doc.id).toList();
@@ -37,12 +37,32 @@ class ChatServices {
       final usersSnapshot = await _firestore.collection('Users').get();
 
       // RETURN AS STREAM LIST, EXCLUDING CURRENT USER AND BLOCKED USERS.
-      return usersSnapshot.docs
-          .where((doc) =>
-      doc.data()['email']!=currentUser.email &&
-      !blockedUsersIds.contains(doc.id))
-          .map((doc) => doc.data())
-          .toList();
+     final userData = await Future.wait(
+       // get all docs
+         usersSnapshot.docs
+         // excluding current user and blocked users
+             .where((doc) =>
+              doc.data()['email']!=currentUser.email &&
+             !blockedUsersIds.contains(doc.id))
+              .map((doc) async{
+                // look at each users
+                final userData = doc.data();
+                // and their chat rooms
+                final chatRoomID = [currentUser.uid, doc.id]..sort();
+                //count the number of unread message
+                final unreadMessageSnapshot = await _firestore
+                .collection("chat_rooms")
+                .doc(chatRoomID.join('_'))
+                .collection("messages")
+                .where('received ID', isEqualTo: currentUser.uid)
+                .where('isRead',isEqualTo: false)
+                .get();
+
+                userData['unreadCount'] = unreadMessageSnapshot.docs.length;
+                return userData;
+         }).toList(),
+          );
+     return userData;
       });
   }
 
@@ -61,6 +81,7 @@ class ChatServices {
       receiverID: receiverID,
       message: message,
       timestamp: timestamp,
+      isRead: false,
     );
 
     // Construct chat room ID for two users (sorted to ensure uniqueness)
@@ -89,6 +110,32 @@ class ChatServices {
         .collection("messages")
         .orderBy("timestamp", descending: false)
         .snapshots();
+  }
+
+  // MARK MESSAGES AS READ
+  Future<void> markMessagesAsRead(String receiverId) async{
+
+    // get current user id
+    final currentUserID = _auth.currentUser!.uid;
+
+    // get chat room
+    List<String> ids = [currentUserID, receiverId];
+    ids.sort();
+    String chatRoomID = ids.join('_');
+
+    // get unread message
+    final unreadMessageQuery = _firestore.collection("chat_rooms")
+        .doc(chatRoomID).collection("message")
+        .where('receivedID', isEqualTo: currentUserID)
+        .where('isRead', isEqualTo: false);
+
+    final unreadMessageSnapshot = await unreadMessageQuery.get();
+
+    // go through each message and mark as read
+
+    for (var doc in unreadMessageSnapshot.docs){
+      await doc.reference.update({'isRead': true});
+    }
   }
 
   // REPORT USERS

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:real_time_chat/Pages/home_page.dart';
 import 'package:real_time_chat/componenets/chat_bubble.dart';
 import 'package:real_time_chat/componenets/my_textfield.dart';
 import 'package:real_time_chat/services/auth/auth_services.dart';
@@ -89,18 +90,27 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: Text(widget.receiverEmail),
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.grey,
-        elevation: 0,
+      title: Text(widget.receiverEmail),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: (){
+          // navigation to homepage and remove all previous routes
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomePage(),
+              ),
+                  (route) => route.isFirst);
+        },
+      ),
+
+      backgroundColor: Theme.of(context).colorScheme.background,
       ),
       body: Column(
         children: [
           // Display all messages
           Expanded(child: _buildMessageList()),
-
           // User input
           _buildUserInput(),
         ],

@@ -28,7 +28,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).themeData, // Referencing lightMode from light.dart
-      home:  const AuthGate(),
+      // home:  const AuthGate(),
+      initialRoute: '/',
+          routes: {
+            '/': (context) => const AuthGate(),
+          },
     );
   }
 }

@@ -5,10 +5,16 @@ import '../services/auth/auth_services.dart';
 class MyDrawer extends StatelessWidget{
   const MyDrawer({super.key});
 
-  void logout(){
-    //get auth services
+  // logout
+  void logout(BuildContext context){
     final auth = AuthServices();
     auth.signOut();
+
+    // then navigation to initial route (Auth Gate / login Register page
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/', (route) => false);
+
+
   }
 
   @override
@@ -20,19 +26,32 @@ class MyDrawer extends StatelessWidget{
       children: [
         Column(
           children: [
-            DrawerHeader(
-              child: Center(
-                child: Icon(
-                  Icons.message,
-                  size: 40,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+            // app logo
+            Center(
+             child: Padding(
+              padding: const EdgeInsets.only(
+                left: 120.0,
+                right: 120,
+                top: 120,
+                bottom: 60,
               ),
+               child: Image.asset(
+                 'lib/images/message.png',
+                 color: Theme.of(context).colorScheme.primary,
+               ),
+               ),
+            ),
+
+            // divider line
+            Divider(
+              color:  Theme.of(context).colorScheme.secondary,
+              indent: 25,
+              endIndent: 25,
             ),
 
             // home list  title
             Padding(
-              padding: const EdgeInsets.all(25.0),
+              padding: const EdgeInsets.only(left: 25.0, top: 10),
               child: ListTile(
                 title: const Text("H O M E"),
                 leading: const Icon(Icons.home),
@@ -70,7 +89,7 @@ class MyDrawer extends StatelessWidget{
         child: ListTile(
           title: const Text("L O G O U T"),
           leading: const Icon(Icons.logout),
-          onTap: logout,
+          onTap: () => logout(context),
         ),
         ),
       ],
