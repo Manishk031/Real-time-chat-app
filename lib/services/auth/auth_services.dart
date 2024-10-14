@@ -1,3 +1,5 @@
+import 'dart:js_interop_unsafe';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -33,8 +35,7 @@ class AuthServices {
     }
 
     // sign up
-
-      Future<UserCredential> signUpWithEmailPassword(String email, password) async{
+   Future<UserCredential> signUpWithEmailPassword(String email, password) async{
       try{
          // create user
         UserCredential userCredential =
@@ -62,6 +63,19 @@ class AuthServices {
        Future<void> signOut() async{
       return await _auth.signOut();
        }
+
+       // deleted a  account
+Future<void> deleteAccount() async{
+    User? user = getCurrentUser();
+
+    if(user != null){
+      //deleted the user's data from firestore
+      await _firestore.collection('Users').doc(user.uid).delete();
+
+      //deleted the users data from firestore
+      await user.delete();
+    }
+}
 
    // errors
     }
